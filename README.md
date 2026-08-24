@@ -367,7 +367,7 @@ Handshake: `io(url, { auth: { token } })` — the same access token as REST.
 ## Tests
 
 ```bash
-npm test                 # 55 tests
+npm test                 # 62 tests
 npm run test:coverage --workspace server
 ```
 
@@ -381,6 +381,7 @@ real database is touched.
 | `message.test.js` | Sending, cursor pagination, unread counts, edit/delete permissions, soft delete, and search — including that regex metacharacters in a query are treated as literal text |
 | `socket.test.js` | Real socket.io clients end to end: handshake auth, presence across multiple devices, cross-client delivery, typing broadcast (and that it is not echoed to the sender), read receipts |
 | `presence.test.js` | The presence registry and regex escaping as units |
+| `app.test.js` | CORS: the configured origin and Vercel deployments pass, an unknown origin is refused with 403 rather than 500, and a lookalike like `vercel.app.attacker.com` does not slip through |
 
 To run the suite against an existing MongoDB instead of the in-memory one:
 

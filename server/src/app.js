@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 
 const env = require('./config/env');
 const routes = require('./routes');
+const ApiError = require('./utils/ApiError');
 const { apiLimiter } = require('./middleware/rateLimit');
 const { notFound, errorHandler } = require('./middleware/error');
 
@@ -32,7 +33,12 @@ const corsOptions = {
     if (env.clientUrls.includes(origin)) return callback(null, true);
     // Allow Vercel preview deployments of this project.
     if (/^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)) return callback(null, true);
-    return callback(new Error(`Origin ${origin} is not allowed by CORS`));
+
+    // A disallowed origin is a rejected request, not a server fault — answering
+    // 500 would both mislead the caller and fill the logs with fake incidents.
+    return callback(
+      ApiError.forbidden(`Origin ${origin} is not allowed by CORS`, { code: 'CORS_BLOCKED' })
+    );
   },
   credentials: true,
 };
