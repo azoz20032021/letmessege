@@ -40,3 +40,6 @@ Thumbs.db
 
 # typescript incremental build info
 *.tsbuildinfo
+
+# local-only secrets for the live deploy
+.env.production.local

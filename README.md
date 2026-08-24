@@ -415,6 +415,8 @@ Then seed the demo account once from the platform's shell:
 npm run seed
 ```
 
+> Step-by-step walkthrough with the gotchas: **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
+
 ### Environment variables
 
 **Server** — see [`server/.env.example`](server/.env.example)
