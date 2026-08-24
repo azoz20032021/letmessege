@@ -11,6 +11,7 @@
     "build": "npm run build --workspace client",
     "test": "npm run test --workspace server",
     "seed": "npm run seed --workspace server",
+    "dev:db": "npm run dev:db --workspace server",
     "lint": "npm run lint --workspaces --if-present"
   },
   "devDependencies": {
