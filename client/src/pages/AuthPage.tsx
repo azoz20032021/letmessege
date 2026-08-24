@@ -1,8 +1,17 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { AtSign, Eye, EyeOff, Lock, MessagesSquare, Sparkles, User as UserIcon } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+  AtSign,
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  MessagesSquare,
+  Sparkles,
+  User as UserIcon,
+} from 'lucide-react';
 
 import { Button, Input } from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
@@ -54,6 +63,21 @@ export function AuthPage({ mode }: { mode: 'login' | 'register' }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [busy, setBusy] = useState<'form' | 'demo' | null>(null);
+
+  // The API runs on free hosting that spins down when idle, so the very first
+  // request of the day can take the best part of a minute. A silent spinner for
+  // that long reads as a broken app, so once a request is clearly not coming
+  // back quickly we say what is actually happening.
+  const [slow, setSlow] = useState(false);
+
+  useEffect(() => {
+    if (!busy) {
+      setSlow(false);
+      return undefined;
+    }
+    const timer = setTimeout(() => setSlow(true), 2500);
+    return () => clearTimeout(timer);
+  }, [busy]);
 
   if (status === 'authenticated') {
     return <Navigate to={(location.state as { from?: string })?.from ?? '/'} replace />;
@@ -228,11 +252,29 @@ export function AuthPage({ mode }: { mode: 'login' | 'register' }) {
                 }
               />
 
-              {error && (
+              {error && !slow && (
                 <p role="alert" className="rounded-xl bg-red-500/10 px-3 py-2 text-sm text-red-500">
                   {error}
                 </p>
               )}
+
+              <AnimatePresence>
+                {slow && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    role="status"
+                    className="flex gap-2.5 rounded-xl bg-amber-500/10 px-3 py-2.5 text-amber-700 dark:text-amber-400"
+                  >
+                    <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin" aria-hidden />
+                    <span className="text-sm">
+                      <span className="block font-medium">{t('auth.wakingTitle')}</span>
+                      <span className="mt-0.5 block text-xs opacity-90">{t('auth.wakingBody')}</span>
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <Button
                 type="submit"

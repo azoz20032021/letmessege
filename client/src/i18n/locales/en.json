@@ -44,7 +44,9 @@
     "demoButton": "Enter with the demo account",
     "demoHint": "demo@test.com · 123456",
     "signedOut": "You have been signed out",
-    "welcome": "Welcome, {{name}}"
+    "welcome": "Welcome, {{name}}",
+    "wakingTitle": "Waking the server up…",
+    "wakingBody": "The API is on free hosting that sleeps when idle. This first request can take up to a minute — after that everything is instant."
   },
   "sidebar": {
     "chats": "Chats",

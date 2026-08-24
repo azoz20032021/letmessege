@@ -44,7 +44,9 @@
     "demoButton": "Demo hesabıyla gir",
     "demoHint": "demo@test.com · 123456",
     "signedOut": "Çıkış yapıldı",
-    "welcome": "Hoş geldin, {{name}}"
+    "welcome": "Hoş geldin, {{name}}",
+    "wakingTitle": "Sunucu uyandırılıyor…",
+    "wakingBody": "API, boştayken uyuyan ücretsiz bir sunucuda. Bu ilk istek bir dakikayı bulabilir — sonrası anında."
   },
   "sidebar": {
     "chats": "Sohbetler",
