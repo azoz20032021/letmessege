@@ -165,4 +165,4 @@ slash.
 | CORS error in the console | Same as above |
 | `MongooseServerSelectionError` in Render logs | Atlas Network Access is missing `0.0.0.0/0`, or the password in the URI is wrong / not URL-encoded |
 | Password has `@`, `:`, `/` or `#` in it | URL-encode it, or regenerate a password without those characters |
-| Uploads vanish after a redeploy | Expected without Cloudinary — the local disk is ephemeral. Set `CLOUDINARY_*` for persistence |
+| Uploads vanish after a redeploy | Cloudinary is not configured. Render's disk lives and dies with the container: it is wiped on every deploy **and** after ~15 minutes of inactivity, when a free instance is torn down. Set the three `CLOUDINARY_*` variables — the code switches over on its own, no code change needed |

@@ -185,7 +185,8 @@ const deleteMessage = asyncHandler(async (req, res) => {
     throw ApiError.forbidden('You cannot delete this message', { code: 'NOT_ALLOWED' });
   }
 
-  await Promise.all(message.attachments.map((a) => deleteFile(a.publicId).catch(() => {})));
+  // deleteFile never throws; it logs instead, so cleanup cannot fail the request.
+  await Promise.all(message.attachments.map((a) => deleteFile(a.publicId)));
 
   message.deletedAt = new Date();
   message.text = '';

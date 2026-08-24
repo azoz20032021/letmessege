@@ -60,13 +60,30 @@ async function storeFile(file, { folder = 'letmessage' } = {}) {
   };
 }
 
+/**
+ * Removes a stored file.
+ *
+ * Never throws: deleting the blob is cleanup, and failing it must not fail the
+ * request that triggered it. It does log, though — a silent failure here leaks
+ * storage that nothing will ever point at again.
+ */
 async function deleteFile(publicId) {
   if (!publicId) return;
-  if (publicId.startsWith('local:')) {
-    await fs.rm(path.join(LOCAL_DIR, publicId.slice(6)), { force: true });
-    return;
+
+  try {
+    if (publicId.startsWith('local:')) {
+      await fs.rm(path.join(LOCAL_DIR, publicId.slice(6)), { force: true });
+      return;
+    }
+    if (env.cloudinary.enabled) {
+      const result = await cloudinary.uploader.destroy(publicId);
+      if (result?.result !== 'ok' && result?.result !== 'not found') {
+        logger.warn(`Cloudinary did not delete ${publicId}: ${result?.result}`);
+      }
+    }
+  } catch (err) {
+    logger.warn(`Could not delete stored file ${publicId}: ${err.message}`);
   }
-  if (env.cloudinary.enabled) await cloudinary.uploader.destroy(publicId);
 }
 
 module.exports = { storeFile, deleteFile, isImage, LOCAL_DIR };

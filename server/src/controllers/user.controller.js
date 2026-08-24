@@ -60,7 +60,7 @@ const updateAvatar = asyncHandler(async (req, res) => {
   req.user.avatarPublicId = stored.publicId;
   await req.user.save();
 
-  if (previous) await deleteFile(previous).catch(() => {});
+  if (previous) await deleteFile(previous);
 
   res.json({ success: true, data: { user: req.user.toPublic() } });
 });
