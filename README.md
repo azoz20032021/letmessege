@@ -8,7 +8,7 @@
 
 Built on WebSockets — not polling — with a React front-end, an Express + Socket.IO API and MongoDB.
 
-[![CI](https://github.com/your-username/letmessage/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/letmessage/actions/workflows/ci.yml)
+[![CI](https://github.com/azoz20032021/letmessege/actions/workflows/ci.yml/badge.svg)](https://github.com/azoz20032021/letmessege/actions/workflows/ci.yml)
 ![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8-010101?logo=socket.io&logoColor=white)
@@ -113,8 +113,8 @@ throwaway in-memory one — see step 2.
 ### 1. Install
 
 ```bash
-git clone https://github.com/your-username/letmessage.git
-cd letmessage
+git clone https://github.com/azoz20032021/letmessege.git
+cd letmessege
 npm install
 ```
 
