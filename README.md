@@ -15,7 +15,9 @@ Built on WebSockets — not polling — with a React front-end, an Express + Soc
 ![MongoDB](https://img.shields.io/badge/MongoDB-7-47A248?logo=mongodb&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**[Live demo](#) · [Try it with `demo@test.com` / `123456`](#try-it-without-signing-up)**
+### **[▶ Open the live demo](https://letmessege-client.vercel.app)**
+
+Sign in with one click — no registration. `demo@test.com` / `123456`
 
 </div>
 
@@ -28,6 +30,8 @@ Built on WebSockets — not polling — with a React front-end, an Express + Soc
 ---
 
 ## Try it without signing up
+
+**[letmessege-client.vercel.app](https://letmessege-client.vercel.app)**
 
 The sign-in screen has a one-click **“Enter with the demo account”** button, so a
 reviewer never has to register.

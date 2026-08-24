@@ -1,5 +1,11 @@
 # Deploying LetMessage
 
+> This project is already live:
+> **front-end** https://letmessege-client.vercel.app ·
+> **API** https://letmessage-api.onrender.com
+>
+> What follows is how it was put together, and how to reproduce it.
+
 Three pieces: a database (MongoDB Atlas), the API (Render), and the front-end
 (Vercel).
 
