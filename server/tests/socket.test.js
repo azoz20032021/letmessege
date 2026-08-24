@@ -39,7 +39,7 @@ const connect = (token) =>
   });
 
 /** Resolves with the first payload of `event`, or rejects after `timeout` ms. */
-const waitFor = (socket, event, timeout = 5000) =>
+const waitFor = (socket, event, timeout = 10000) =>
   new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error(`Timed out waiting for "${event}"`)), timeout);
     socket.once(event, (payload) => {

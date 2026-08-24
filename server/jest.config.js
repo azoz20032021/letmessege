@@ -10,7 +10,8 @@ module.exports = {
     '!src/utils/seed.js',
   ],
   coverageThreshold: {
-    global: { statements: 50, branches: 35, functions: 50, lines: 50 },
+    // Set just under the current numbers, so a real regression fails CI.
+    global: { statements: 72, branches: 48, functions: 65, lines: 75 },
   },
   verbose: true,
 };

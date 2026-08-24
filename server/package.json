@@ -10,7 +10,8 @@
     "dev": "nodemon src/server.js",
     "seed": "node src/utils/seed.js",
     "dev:db": "node scripts/dev-db.js",
-    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit",
+    "test:debug": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:watch": "cross-env NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "cross-env NODE_ENV=test jest --runInBand --coverage --forceExit"
   },
