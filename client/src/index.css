@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme is the default; `.dark` on <html> swaps the same token names. */
+  :root {
+    --surface: 255 255 255;
+    --surface-muted: 246 247 251;
+    --surface-raised: 255 255 255;
+    --ink: 17 20 32;
+    --ink-muted: 92 99 120;
+    --ink-faint: 141 148 168;
+    --line: 227 230 239;
+  }
+
+  .dark {
+    --surface: 15 17 26;
+    --surface-muted: 20 23 34;
+    --surface-raised: 27 31 45;
+    --ink: 238 240 247;
+    --ink-muted: 155 162 184;
+    --ink-faint: 110 117 138;
+    --line: 39 44 61;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-surface-muted text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Arabic reads better a touch larger at the same nominal size. */
+  html[dir='rtl'] body {
+    font-size: 1.02em;
+  }
+
+  ::selection {
+    @apply bg-brand-500/25;
+  }
+}
+
+@layer components {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--line)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-faint/50;
+  }
+
+  .focus-ring {
+    @apply outline-none ring-offset-2 ring-offset-surface focus-visible:ring-2 focus-visible:ring-brand-500;
+  }
+
+  /* The subtle dot grid behind the message list. */
+  .chat-canvas {
+    background-image: radial-gradient(rgb(var(--line) / 0.9) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .glass {
+    @apply bg-surface/80 backdrop-blur-xl backdrop-saturate-150;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Mirrors an icon that encodes direction (send arrow, back chevron) in RTL. */
+  .rtl-flip {
+    @apply rtl:-scale-x-100;
+  }
+
+  .animate-typing-dot {
+    animation: typing-dot 1.2s infinite ease-in-out;
+  }
+}
+
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

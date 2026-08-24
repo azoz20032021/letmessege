@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f111a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <title>LetMessage — Real-time chat</title>
+    <meta
+      name="description"
+      content="LetMessage is a real-time chat app with direct and group rooms, typing indicators, presence, file sharing and search. Built with React, Socket.IO and MongoDB."
+    />
+
+    <meta property="og:title" content="LetMessage — Real-time chat" />
+    <meta
+      property="og:description"
+      content="Direct and group chat in real time: typing indicators, presence, read receipts, file sharing and search."
+    />
+    <meta property="og:type" content="website" />
+
+    <script>
+      // Applied before first paint so the app never flashes the wrong theme or direction.
+      (() => {
+        const theme = localStorage.getItem('lm.theme') ??
+          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+
+        const lang = localStorage.getItem('lm.lang') ?? 'en';
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
