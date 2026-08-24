@@ -9,7 +9,19 @@ import { cn } from '@/lib/utils';
 import { useClickOutside } from '@/hooks';
 import { useAuthStore } from '@/store/auth';
 
-export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
+interface LanguageSwitcherProps {
+  compact?: boolean;
+  /**
+   * Which edge of the trigger the menu hangs from.
+   *
+   * A trigger sitting at the start of its row must open inward ('start'),
+   * otherwise the panel runs off the side of the window — and because these are
+   * logical edges, it stays correct once the layout mirrors for Arabic.
+   */
+  align?: 'start' | 'end';
+}
+
+export function LanguageSwitcher({ compact = false, align = 'end' }: LanguageSwitcherProps) {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useClickOutside<HTMLDivElement>(() => setOpen(false), open);
@@ -45,7 +57,13 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
       </Button>
 
       {open && (
-        <div className="absolute bottom-full end-0 z-40 mb-2 w-44 animate-pop-in overflow-hidden rounded-xl border border-line bg-surface-raised p-1 shadow-lift">
+        <div
+          className={cn(
+            'absolute bottom-full z-40 mb-2 w-44 animate-pop-in overflow-hidden rounded-xl',
+            'border border-line bg-surface-raised p-1 shadow-lift',
+            align === 'start' ? 'start-0' : 'end-0'
+          )}
+        >
           {LANGUAGES.map((language) => (
             <button
               key={language.code}

@@ -63,7 +63,7 @@ export function Sidebar() {
           <Avatar
             name={user?.name ?? '?'}
             src={user?.avatar}
-            gradient={user?.avatarColor}
+            color={user?.avatarColor}
             online={user ? onlineUserIds.has(user._id) : undefined}
           />
           <span className="min-w-0">
@@ -116,7 +116,7 @@ export function Sidebar() {
           >
             {theme === 'dark' ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
           </Button>
-          <LanguageSwitcher compact />
+          <LanguageSwitcher compact align="start" />
           <Button
             variant="ghost"
             size="icon"
