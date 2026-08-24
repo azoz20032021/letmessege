@@ -240,7 +240,7 @@ export function MessageBubble({
                 )}
               >
                 <span className="block font-medium opacity-90">{message.replyTo.sender.name}</span>
-                <span className="line-clamp-2 opacity-75">
+                <span dir="auto" className="line-clamp-2 opacity-75">
                   {message.replyTo.text || t('chat.photo')}
                 </span>
               </div>
@@ -290,7 +290,13 @@ export function MessageBubble({
                     ))}
                   </div>
                 )}
-                {message.text && <p className="whitespace-pre-wrap break-words">{message.text}</p>}
+                {message.text && (
+                  // dir="auto" isolates each message: an English line inside the
+                  // Arabic UI keeps its own direction and punctuation placement.
+                  <p dir="auto" className="whitespace-pre-wrap break-words">
+                    {message.text}
+                  </p>
+                )}
               </>
             )}
 

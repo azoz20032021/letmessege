@@ -110,6 +110,7 @@ function ConversationRow({ conversation }: { conversation: Conversation }) {
 
         <span className="mt-0.5 flex items-center justify-between gap-2">
           <span
+            dir="auto"
             className={cn(
               'truncate text-[13px]',
               someoneTyping

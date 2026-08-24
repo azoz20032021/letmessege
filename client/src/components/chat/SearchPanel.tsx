@@ -138,7 +138,7 @@ export function SearchPanel() {
                       {formatListStamp(result.createdAt, i18n.resolvedLanguage)}
                     </span>
                   </span>
-                  <span className="mt-0.5 line-clamp-2 block text-[13px] text-ink-muted">
+                  <span dir="auto" className="mt-0.5 line-clamp-2 block text-[13px] text-ink-muted">
                     <span className="font-medium">{result.sender.name}: </span>
                     <Highlighted text={result.text} query={debounced} />
                   </span>

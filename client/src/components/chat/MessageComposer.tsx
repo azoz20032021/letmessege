@@ -141,7 +141,7 @@ export function MessageComposer({ conversationId }: { conversationId: string }) 
                 <p className="text-xs font-medium text-brand-500">
                   {t('chat.replyingTo', { name: replyTo.sender.name })}
                 </p>
-                <p className="truncate text-xs text-ink-muted">
+                <p dir="auto" className="truncate text-xs text-ink-muted">
                   {replyTo.text || t('chat.photo')}
                 </p>
               </div>
@@ -249,6 +249,7 @@ export function MessageComposer({ conversationId }: { conversationId: string }) 
             placeholder={t('chat.placeholder')}
             aria-label={t('chat.placeholder')}
             key={conversationId}
+            dir="auto"
             className="max-h-40 w-full resize-none bg-transparent px-3.5 py-2.5 text-[15px] leading-6 text-ink outline-none placeholder:text-ink-faint"
           />
         </div>
