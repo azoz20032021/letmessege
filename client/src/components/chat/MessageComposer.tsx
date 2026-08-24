@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CornerUpLeft, FileText, Paperclip, SendHorizonal, Smile, X } from 'lucide-react';
@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { Button, Spinner } from '@/components/ui';
 import { EmojiPicker } from './EmojiPicker';
 import { cn, formatBytes, isImageMime } from '@/lib/utils';
-import { useAutoResize, useClickOutside } from '@/hooks';
+import { useClickOutside } from '@/hooks';
 import { useChatStore } from '@/store/chat';
 
 const MAX_FILES = 5;
@@ -33,11 +33,21 @@ export function MessageComposer({ conversationId }: { conversationId: string }) 
   const [progress, setProgress] = useState(0);
   const [emojiOpen, setEmojiOpen] = useState(false);
 
-  const textareaRef = useAutoResize(text);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const emojiRef = useClickOutside<HTMLDivElement>(() => setEmojiOpen(false), emojiOpen);
 
   const canSend = (text.trim().length > 0 || staged.length > 0) && !uploading;
+
+  // Switching conversations starts a fresh draft rather than carrying one over.
+  useEffect(() => {
+    setText('');
+    setEmojiOpen(false);
+    setStaged((current) => {
+      current.forEach((s) => s.previewUrl && URL.revokeObjectURL(s.previewUrl));
+      return [];
+    });
+  }, [conversationId]);
 
   const stageFiles = (files: FileList | null) => {
     if (!files?.length) return;
@@ -238,7 +248,22 @@ export function MessageComposer({ conversationId }: { conversationId: string }) 
           </AnimatePresence>
         </div>
 
-        <div className="flex min-w-0 flex-1 items-end rounded-2xl border border-line bg-surface-muted transition-colors focus-within:border-brand-500/60">
+        {/*
+          Auto-growing textarea, done in CSS rather than by measuring.
+
+          The textarea and an invisible mirror of its text share one grid cell.
+          The mirror is what gives the cell its height, and the textarea
+          stretches to fill it — so the field is exactly as tall as its content
+          with no scrollHeight reads, no resize observers and nothing that can
+          mis-measure while fonts or layout are still settling.
+        */}
+        <div
+          className={cn(
+            'grid min-w-0 flex-1 rounded-2xl border border-line bg-surface-muted',
+            'max-h-[9.25rem] overflow-y-auto transition-colors focus-within:border-brand-500/60',
+            'scrollbar-thin'
+          )}
+        >
           <textarea
             ref={textareaRef}
             value={text}
@@ -248,10 +273,23 @@ export function MessageComposer({ conversationId }: { conversationId: string }) 
             rows={1}
             placeholder={t('chat.placeholder')}
             aria-label={t('chat.placeholder')}
-            key={conversationId}
             dir="auto"
-            className="max-h-40 w-full resize-none bg-transparent px-3.5 py-2.5 text-[15px] leading-6 text-ink outline-none placeholder:text-ink-faint"
+            className={cn(
+              'col-start-1 row-start-1 w-full resize-none overflow-hidden bg-transparent',
+              'px-3.5 py-2.5 text-[15px] leading-6 text-ink outline-none placeholder:text-ink-faint'
+            )}
           />
+          <div
+            aria-hidden
+            dir="auto"
+            // The trailing space keeps a final newline from collapsing.
+            className={cn(
+              'pointer-events-none invisible col-start-1 row-start-1 whitespace-pre-wrap break-words',
+              'px-3.5 py-2.5 text-[15px] leading-6'
+            )}
+          >
+            {`${text} `}
+          </div>
         </div>
 
         <Button

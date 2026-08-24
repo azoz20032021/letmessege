@@ -81,18 +81,3 @@ export function useDebouncedValue<T>(value: T, delay = 300) {
 
   return debounced;
 }
-
-/** Grows a textarea with its content, up to `maxRows`. */
-export function useAutoResize(value: string, maxRows = 6) {
-  const ref = useRef<HTMLTextAreaElement>(null);
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.height = 'auto';
-    const lineHeight = Number.parseFloat(getComputedStyle(el).lineHeight) || 24;
-    el.style.height = `${Math.min(el.scrollHeight, lineHeight * maxRows + 24)}px`;
-  }, [value, maxRows]);
-
-  return ref;
-}
