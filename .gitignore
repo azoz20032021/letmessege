@@ -37,3 +37,6 @@ server/uploads/*
 .DS_Store
 Thumbs.db
 *.swp
+
+# typescript incremental build info
+*.tsbuildinfo
