@@ -151,7 +151,7 @@ export function GroupInfoPanel({ conversation }: { conversation: Conversation })
                       onClick={() => void addMember(user._id)}
                       className="focus-ring flex w-full items-center gap-2.5 rounded-lg p-1.5 text-start transition-colors hover:bg-surface disabled:opacity-50"
                     >
-                      <Avatar name={user.name} src={user.avatar} gradient={user.avatarColor} size="sm" />
+                      <Avatar name={user.name} src={user.avatar} color={user.avatarColor} size="sm" />
                       <span className="min-w-0 flex-1 truncate text-sm text-ink">{user.name}</span>
                       <Plus className="h-4 w-4 text-brand-500" />
                     </button>
@@ -173,7 +173,7 @@ export function GroupInfoPanel({ conversation }: { conversation: Conversation })
                   <Avatar
                     name={member.name}
                     src={member.avatar}
-                    gradient={member.avatarColor}
+                    color={member.avatarColor}
                     online={onlineUserIds.has(member._id)}
                   />
                   <div className="min-w-0 flex-1">

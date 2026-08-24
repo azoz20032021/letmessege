@@ -151,23 +151,37 @@ const AVATAR_SIZES = {
   xl: 'h-20 w-20 text-2xl',
 } as const;
 
+/**
+ * The avatar palette lives here, keyed by the colour the API stores.
+ *
+ * These have to be literal class strings for Tailwind's scanner to emit them —
+ * building them from a value that only exists at runtime would leave the
+ * gradient undefined and the initials floating on nothing.
+ */
+const AVATAR_GRADIENTS: Record<string, string> = {
+  violet: 'from-violet-500 to-fuchsia-600',
+  sky: 'from-sky-500 to-indigo-600',
+  emerald: 'from-emerald-500 to-teal-600',
+  amber: 'from-amber-500 to-orange-600',
+  rose: 'from-rose-500 to-pink-600',
+  cyan: 'from-cyan-500 to-blue-600',
+};
+
+const DEFAULT_GRADIENT = 'from-brand-500 to-brand-700';
+
 interface AvatarProps {
   name: string;
   src?: string;
-  gradient?: string;
+  /** Colour key from the API (`violet`, `sky`, …). */
+  color?: string;
   size?: keyof typeof AVATAR_SIZES;
   online?: boolean;
   className?: string;
 }
 
-export function Avatar({
-  name,
-  src,
-  gradient = 'from-brand-500 to-brand-700',
-  size = 'md',
-  online,
-  className,
-}: AvatarProps) {
+export function Avatar({ name, src, color, size = 'md', online, className }: AvatarProps) {
+  const gradient = (color && AVATAR_GRADIENTS[color]) || DEFAULT_GRADIENT;
+
   return (
     <span className={cn('relative inline-flex shrink-0', className)}>
       {src ? (

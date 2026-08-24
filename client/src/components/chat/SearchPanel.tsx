@@ -126,7 +126,7 @@ export function SearchPanel() {
                   <Avatar
                     name={result.sender.name}
                     src={result.sender.avatar}
-                    gradient={result.sender.avatarColor}
+                    color={result.sender.avatarColor}
                     size="md"
                   />
                 )}

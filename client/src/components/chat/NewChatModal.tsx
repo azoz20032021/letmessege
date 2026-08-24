@@ -196,7 +196,7 @@ export function NewChatModal() {
                   <Avatar
                     name={user.name}
                     src={user.avatar}
-                    gradient={user.avatarColor}
+                    color={user.avatarColor}
                     online={onlineUserIds.has(user._id)}
                   />
                   <span className="min-w-0 flex-1">

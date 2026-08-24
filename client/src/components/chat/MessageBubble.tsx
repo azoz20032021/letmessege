@@ -209,7 +209,7 @@ export function MessageBubble({
           <Avatar
             name={message.sender.name}
             src={message.sender.avatar}
-            gradient={message.sender.avatarColor}
+            color={message.sender.avatarColor}
             size="sm"
           />
         )}

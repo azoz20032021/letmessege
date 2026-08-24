@@ -71,7 +71,7 @@ export function ChatHeader({ conversation }: { conversation: Conversation }) {
           <Avatar
             name={conversation.title}
             src={conversation.peer?.avatar}
-            gradient={conversation.peer?.avatarColor}
+            color={conversation.peer?.avatarColor}
             online={peerOnline}
           />
         )}

@@ -84,7 +84,7 @@ export function ProfileModal() {
       <div className="space-y-5">
         <div className="flex flex-col items-center">
           <div className="relative">
-            <Avatar name={user.name} src={user.avatar} gradient={user.avatarColor} size="xl" />
+            <Avatar name={user.name} src={user.avatar} color={user.avatarColor} size="xl" />
             <button
               type="button"
               onClick={() => fileRef.current?.click()}

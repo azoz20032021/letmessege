@@ -86,7 +86,7 @@ function ConversationRow({ conversation }: { conversation: Conversation }) {
         <Avatar
           name={conversation.title}
           src={conversation.peer?.avatar}
-          gradient={conversation.peer?.avatarColor}
+          color={conversation.peer?.avatarColor}
           size="lg"
           online={peerOnline}
           className="shrink-0"

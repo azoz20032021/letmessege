@@ -5,6 +5,7 @@ export interface User {
   name: string;
   email: string;
   avatar: string;
+  /** Colour key (violet, sky, emerald, amber, rose, cyan) — the client maps it to a gradient. */
   avatarColor: string;
   bio: string;
   locale: LocaleCode;

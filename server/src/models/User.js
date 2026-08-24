@@ -3,14 +3,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const AVATAR_GRADIENTS = [
-  'from-violet-500 to-fuchsia-500',
-  'from-sky-500 to-indigo-500',
-  'from-emerald-500 to-teal-500',
-  'from-amber-500 to-orange-500',
-  'from-rose-500 to-pink-500',
-  'from-cyan-500 to-blue-500',
-];
+// Colour *keys*, not CSS classes: the client owns how each one is painted.
+// Storing class names here would break the moment Tailwind stopped generating
+// them, since its scanner cannot see strings that live in the database.
+const AVATAR_COLORS = ['violet', 'sky', 'emerald', 'amber', 'rose', 'cyan'];
 
 const userSchema = new mongoose.Schema(
   {
@@ -39,7 +35,8 @@ const userSchema = new mongoose.Schema(
     avatarPublicId: { type: String, default: '' },
     avatarColor: {
       type: String,
-      default: () => AVATAR_GRADIENTS[Math.floor(Math.random() * AVATAR_GRADIENTS.length)],
+      enum: AVATAR_COLORS,
+      default: () => AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)],
     },
     bio: { type: String, default: '', maxlength: 160, trim: true },
     locale: { type: String, enum: ['en', 'ar', 'tr'], default: 'en' },
@@ -92,3 +89,4 @@ userSchema.methods.toPublic = function toPublic() {
 userSchema.statics.PUBLIC_FIELDS = 'name email avatar avatarColor bio isOnline lastSeen';
 
 module.exports = mongoose.model('User', userSchema);
+module.exports.AVATAR_COLORS = AVATAR_COLORS;
