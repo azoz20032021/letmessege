@@ -12,7 +12,9 @@ services:
     plan: free
     region: frankfurt
     rootDir: server
-    buildCommand: npm ci
+    # --omit=dev keeps mongodb-memory-server out of the build: its postinstall
+    # downloads a ~100MB mongod binary that production has no use for.
+    buildCommand: npm ci --omit=dev
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
