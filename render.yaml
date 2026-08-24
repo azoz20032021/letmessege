@@ -1,0 +1,40 @@
+# Render blueprint for the API. The front-end is deployed separately on Vercel.
+#
+#   1. Push this repo to GitHub
+#   2. Render → New → Blueprint → pick the repo
+#   3. Fill in MONGODB_URI (MongoDB Atlas) and CLIENT_URL (your Vercel URL)
+#   4. After the first deploy, run `npm run seed` from the Render shell
+
+services:
+  - type: web
+    name: letmessage-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false # paste your Atlas connection string
+      - key: CLIENT_URL
+        sync: false # e.g. https://letmessage.vercel.app
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: DEMO_EMAIL
+        value: demo@test.com
+      - key: DEMO_PASSWORD
+        value: "123456"
